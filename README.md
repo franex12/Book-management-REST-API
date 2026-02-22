@@ -1,30 +1,8 @@
 # Book Management REST API
 A simple RESTful API built with Spring Boot for managing a collection of books. Includes a console-based client application for interacting with the API.
-
-**Table of Contents**
-Features
-Technologies Used
-Prerequisites
-Project Structure
-Installation & Setup
-Running the Application
-API Endpoints
-Testing the API
-Using the Console Client
-H2 Database Console
-Troubleshooting
-
-# Features
-Complete CRUD Operations for books
-Search functionality by title and category
-In-memory H2 database for easy testing
-Validation for required fields like category, author, title and data constraints
-Console-based client for API interaction
-RESTful endpoints following best practices
-
 # Technologies Used
--Java 17
--Spring Boot 3.1.5
+-Java 21
+-Spring Boot 4.0.3
 
 -Spring Web MVC 
 REST API and web server that makes class booksApiService respond to browser requests in the project. runs app on port 8080 and provides MVC that handles HTTP requests and adds jackson that converts Java objects to JSON automatically and back. Also enables @RestController, @GetMappping, @PostMapping annotations.
@@ -47,6 +25,56 @@ testing framework and includes JUnit for writing tests, also provides MockMvc fo
 Before you begin, ensure you have installed:
 Java JDK 17 or 21
 Maven 3.6 or later
-Git (optional, for cloning
-# Create the project
+Git (optional, for cloning)
+# Features
+Book Model
+The Book entity includes the following attributes: id (Long) - Auto-generated primary key, bookTitle (String) - Book title (required), description (String) - Book description (max 500 chars), publishedYear (String) - Year of publication, author (String) - Author name (required), bookCategory (Enum) - Category from predefined list includes(
+Math, English, Biography, History, IT, Literature, Physics, Chemistry, Biology)
+
+API Endpoints tested in Postman
+Get All Books
+GET /books
+Returns a list of all books in the database.
+Response is 200 OK with book list or 204 No Content if empty
+
+Get Book by ID
+GET /books/id/{id}
+Retrieves a specific book by its ID.
+Parameters are id (Long) - Book ID
+Response is 200 OK with book details or 404 Not Found if book doesn't exist
+
+Get Books by Category
+GET /books/category/{category}
+Retrieves all books in a specific category (case-insensitive).
+Parameters are category (String) - Book category
+Response is 200 OK with list of books or 404 Not Found if no books in category or 400 Bad Request if category is invalid
+
+Get Book by Title
+GET /books/title/{title}
+Searches for a book by title (case-insensitive, partial match).
+Parameters are title (String) - Book title to search
+Response is 200 OK with book details or 404 Not Found if no matching book
+
+Add New Book
+POST /books
+Creates a new book entry.
+Request Body:
+json
+{
+    "bookTitle": "Introduction to Java",
+    "author": "John Doe",
+    "description": "A comprehensive guide to Java programming",
+    "publishedYear": "2023",
+    "bookCategory": "IT"
+}
+Validation Rules are Title cannot be empty, Title must be unique, Author cannot be empty, Category must be valid (from predefined list) and description cant exceed 500 characters.
+Response is 201 Created with created book, 400 Bad Request for validation errors or 409 Conflict if title already exists.
+
+Delete Book
+DELETE /books/{id}
+Deletes a book by its ID.
+Parameters are id (Long) - Book ID
+Response is 200 OK with success message or 404 Not Found if book doesn't exist.
+
+# Create the project 
 
