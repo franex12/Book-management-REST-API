@@ -26,12 +26,13 @@ Before you begin, ensure you have installed:
 Java JDK 17 or 21
 Maven 3.6 or later
 Git (optional, for cloning)
+
 # Features
 Book Model
 The Book entity includes the following attributes: id (Long) - Auto-generated primary key, bookTitle (String) - Book title (required), description (String) - Book description (max 500 chars), publishedYear (String) - Year of publication, author (String) - Author name (required), bookCategory (Enum) - Category from predefined list includes(
 Math, English, Biography, History, IT, Literature, Physics, Chemistry, Biology)
 
-API Endpoints tested in Postman
+API Endpoints 
 Get All Books
 GET /books
 Returns a list of all books in the database.
@@ -58,7 +59,8 @@ Response is 200 OK with book details or 404 Not Found if no matching book
 Add New Book
 POST /books
 Creates a new book entry.
-Request Body:
+
+example of a request body:
 json
 {
     "bookTitle": "Introduction to Java",
@@ -67,6 +69,7 @@ json
     "publishedYear": "2023",
     "bookCategory": "IT"
 }
+
 Validation Rules are Title cannot be empty, Title must be unique, Author cannot be empty, Category must be valid (from predefined list) and description cant exceed 500 characters.
 Response is 201 Created with created book, 400 Bad Request for validation errors or 409 Conflict if title already exists.
 
@@ -76,5 +79,17 @@ Deletes a book by its ID.
 Parameters are id (Long) - Book ID
 Response is 200 OK with success message or 404 Not Found if book doesn't exist.
 
-# Create the project 
+# using Postman (urls)
+first start and run BookAssMangApplication,  then navigate to postman
+Get: http/localhost/8080/books - fetches all books,
+Get: http/localhost/8080/books/id/1 - fetches book with id 1, 
+Get: http/localhost/8080/books/category/IT - fetches book/s with category it, 
+Get: http/localhost/8080/books/title/Romeo - fetches book with title Romeo.
+
+Post: http/localhost/8080/books - posts a a new book, 
+Delete: http/localhost/8080/books/1 - deletes book with id 1.
+
+# run in console
+start and run BookAssMangApplication, then run ClientApp and configure the request according to the menu.
+
 
